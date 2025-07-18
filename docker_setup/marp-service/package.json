@@ -1,0 +1,13 @@
+{
+  "name": "marp-service",
+  "version": "1.0.0",
+  "description": "A microservice to convert Markdown to PDF using Marp",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@marp-team/marp-cli": "^3.4.0",
+    "express": "^4.19.2"
+  }
+}

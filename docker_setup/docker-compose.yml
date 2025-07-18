@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+  n8n:
+    image: n8nio/n8n
+    restart: always
+    env_file: .env
+    ports:
+      - "5678:5678"
+    shm_size: '2gb'
+    environment:
+      - N8N_PROTOCOL
+      - N8N_HOST
+      - WEBHOOK_TUNNEL_URL
+      - N8N_PORT
+      - N8N_SSL_KEY
+      - N8N_SSL_CERT
+      - N8N_SECURE_COOKIE
+      - N8N_BASIC_AUTH_ACTIVE
+      - N8N_BASIC_AUTH_USER
+      - N8N_BASIC_AUTH_PASSWORD
+      - GENERIC_TIMEZONE
+      - N8N_USER_MANAGEMENT_DISABLED
+      - EXECUTIONS_PROCESS=main
+    volumes:
+      - ./files:/files
+      - ~/.n8n:/home/node/.n8n
+    networks:
+      - n8n_network
+  postgres:
+    image: pgvector/pgvector:pg15
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - n8n_network
+
+  marp-service:
+    build: ./marp-service
+    restart: always
+    # Wir müssen den Port nicht nach außen freigeben, da n8n direkt darauf zugreift
+    networks:
+      - n8n_network
+
+networks:
+    n8n_network:
+      driver: bridge
+
