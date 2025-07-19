@@ -157,7 +157,7 @@ If you receive `feedback` on your previous work, your primary goal is to improve
 * `Postgres Chat Memory`
   * Saves previous answers in memory. Good for evaluating on previous results. Could be removed if each answer would be saved in the database (i.e. remove memory, add database update node)
 
-
+![Slide Author Tool Usage](images/Slide_Author.png)
 
 
 ## Evaluator
@@ -235,7 +235,7 @@ Your job is to stop the loop when a slide is **good enough**. Do not get stuck o
 }
 ```
 
-
+![Evaluator Tool Usage](images/Evaluator.png)
 
 # Marp-Service
 For the conversion from markdown to a presentation format (pdf), `Marp` is used (https://github.com/marp-team/marp-cli).
