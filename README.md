@@ -72,12 +72,12 @@ Your final output **must be exclusively** a single, raw, valid JSON array string
 Example of a valid output: `[{"Folie": 1, "Titel": "Title One", "Inhalt": "Content one."},{"Folie": 2, "Titel": "Title Two", "Inhalt": "Content two."}]`
 ```
 
-### Settings
+#### Settings
 None
-### Chat Mode
+#### Chat Mode
 * `Open Router Chat Model`
   * Model: `gpt-4o`
-### Tools
+#### Tools
 * `Answer questions with a vector store1` 
   *  LLM for vector storage questioning
   * `Description of Data`: `Das [text] Feld enthält den Inhalt der Paper.`
@@ -88,7 +88,7 @@ None
 ![Presentation Planner Tool Usage](images/Presentation_Planner.png)
 
 ## Slide Author
-###
+### Idea
 The Slide Author is the heart of the workflow.
 He creates each slide per instructions from the Presentation Planner (which is saved in the database), looks for information in the vector storage (where the information of the documents is saved) and forwards the proposed content of each slide (title + content) to the next agent, the evaluator.
 
@@ -159,11 +159,11 @@ If you receive `feedback` on your previous work, your primary goal is to improve
 * Wait Between Tries (ms): 1000
 * On Error: Stop Workflow
 
-### Chat Mode
+#### Chat Mode
 * `Open Router Chat Model`
   * Model: `gpt-4o`
 
-### Memory
+#### Memory
 * `Postgres Chat Memory`
   * Saves previous answers in memory. Good for evaluating on previous results. Could be removed if each answer would be saved in the database (i.e. remove memory, add database update node)
 
@@ -181,7 +181,7 @@ If you receive `feedback` on your previous work, your primary goal is to improve
 
 
 ## Evaluator
-###
+### Idea
 The Evaluator is the second important part of the Critic-Feedback-Loop:
 The Evaluator checks if the output of the Slide Author is in line with the presentation planners vision, the source material as well as the criteria defined in the prompts below.
 
@@ -243,7 +243,7 @@ Your job is to stop the loop when a slide is **good enough**. Do not get stuck o
 * Wait Between Tries (ms): 1000
 * On Error: Stop Workflow
 
-### Chat Mode
+#### Chat Mode
 * `Open Router Chat Model`
   * Model: `gpt-4o`
  
@@ -261,7 +261,7 @@ Your job is to stop the loop when a slide is **good enough**. Do not get stuck o
   * Postgres Vector Store Description: `You can find the relevant papers and their content for the presentation in this vector storage. `
   * Further connections to `OpenRouter Chat Model1`, `PostgresPGVectorStore1` and `Èmbeddings OpenAI2` from `Answer questions with a vector store1`for data retrieval
 
-### Output Parser
+#### Output Parser
 * `Structured Output Parser1`
   * Output Parser for correct json output
   * `Generate from JSON Example`
