@@ -250,10 +250,10 @@ Your job is to stop the loop when a slide is **good enough**. Do not get stuck o
 #### Tools: 
 * `Daten abrufen`
   * Postgres select node to get the slide information for table `presentation_slides`.
-
+![Parameters Data retrieval](images/Retrieve_Data.png)
 * `Feedback speichern`
   * Postgres update node to save the feedback to the table `presentation_slides`.
-
+![Parameters saving feedback](images/Save_Feedback.png)
 * `Answer questions with a vector store1` 
   *  LLM for vector storage questioning
   * `Description of Data`: `Das [text] Feld enthält den Inhalt der Paper.`
