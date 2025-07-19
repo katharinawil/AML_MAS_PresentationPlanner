@@ -74,12 +74,16 @@ Example of a valid output: `[{"Folie": 1, "Titel": "Title One", "Inhalt": "Conte
 
 ### Settings
 None
+### Chat Mode
+* `Open Router Chat Model`
+  * Model: `gpt-4o`
 ### Tools
 * `Answer questions with a vector store1` 
   *  LLM for vector storage questioning
   * `Description of Data`: `Das [text] Feld enthält den Inhalt der Paper.`
   * Limit `500`
   * Postgres Vector Store Description: `You can find the relevant papers and their content for the presentation in this vector storage. `
+  * Further connections to `OpenRouter Chat Model1`, `PostgresPGVectorStore1` and `Èmbeddings OpenAI2` from `Answer questions with a vector store1`for data retrieval
 
 ![Presentation Planner Tool Usage](images/Presentation_Planner.png)
 
@@ -150,12 +154,28 @@ If you receive `feedback` on your previous work, your primary goal is to improve
 
 #### Settings:
 * Require specific output format: `true`
+* Retry On Fail: `true`
+* Max. Tries: 3
+* Wait Between Tries (ms): 1000
+* On Error: Stop Workflow
+
+### Chat Mode
+* `Open Router Chat Model`
+  * Model: `gpt-4o`
+
+### Memory
+* `Postgres Chat Memory`
+  * Saves previous answers in memory. Good for evaluating on previous results. Could be removed if each answer would be saved in the database (i.e. remove memory, add database update node)
 
 #### Tools: 
 * `Get presentation slides`
   * Postgres select node to get the slide information for table `presentation_slides`.
-* `Postgres Chat Memory`
-  * Saves previous answers in memory. Good for evaluating on previous results. Could be removed if each answer would be saved in the database (i.e. remove memory, add database update node)
+* `Answer questions with a vector store1` 
+  *  LLM for vector storage questioning
+  * `Description of Data`: `Das [text] Feld enthält den Inhalt der Paper.`
+  * Limit `500`
+  * Postgres Vector Store Description: `You can find the relevant papers and their content for the presentation in this vector storage. `
+  * Further connections to `OpenRouter Chat Model1`, `PostgresPGVectorStore1` and `Èmbeddings OpenAI2` from `Answer questions with a vector store1`for data retrieval
 
 ![Slide Author Tool Usage](images/Slide_Author.png)
 
@@ -218,13 +238,30 @@ Your job is to stop the loop when a slide is **good enough**. Do not get stuck o
 #### Settings:
 * Require specific output format: `true`
 * Max Iterations: `200`
+* Retry On Fail: `true`
+* Max. Tries: 3
+* Wait Between Tries (ms): 1000
+* On Error: Stop Workflow
 
-
+### Chat Mode
+* `Open Router Chat Model`
+  * Model: `gpt-4o`
+ 
 #### Tools: 
 * `Daten abrufen`
   * Postgres select node to get the slide information for table `presentation_slides`.
+
 * `Feedback speichern`
   * Postgres update node to save the feedback to the table `presentation_slides`.
+
+* `Answer questions with a vector store1` 
+  *  LLM for vector storage questioning
+  * `Description of Data`: `Das [text] Feld enthält den Inhalt der Paper.`
+  * Limit `500`
+  * Postgres Vector Store Description: `You can find the relevant papers and their content for the presentation in this vector storage. `
+  * Further connections to `OpenRouter Chat Model1`, `PostgresPGVectorStore1` and `Èmbeddings OpenAI2` from `Answer questions with a vector store1`for data retrieval
+
+### Output Parser
 * `Structured Output Parser1`
   * Output Parser for correct json output
   * `Generate from JSON Example`
