@@ -81,7 +81,7 @@ None
   * Limit `500`
   * Postgres Vector Store Description: `You can find the relevant papers and their content for the presentation in this vector storage. `
 
-images/Presentation_Planner.png
+![Presentation Planner Tool Usage](images/Presentation_Planner.png)
 
 ## Slide Author
 ###
